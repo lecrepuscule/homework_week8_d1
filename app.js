@@ -1,27 +1,19 @@
 var express = require("express");
 var bodyParser = require("body-parser");
-var usersRouter = require("./user-router");
+var usersRouter = require("./routers/users-router");
+var productsRouter = require("./routers/products-router");
+var ordersRouter = require("./routers/orders-router");
+var mongoose = require("mongoose");
 
-
-// var mongoose = require("mongoose");
-
+mongoose.connect("mongodb://localhost/ecommerce");
 var app = express();
-// mongoose.connect("mongodb://localhost/ecommerce");
-
-
-
 
 // app.use(bodyParser.urlencoded({ extended: false }));
 // app.use(bodyParser.json());
 
-usersRouter.get("/", function(req, res){
-  User.find({}, function(err, users){
-    if (err) console.log(err);
-    res.json(users);
-  });
-})
-
 app.use("/users", usersRouter);
+app.use("/products", productsRouter);
+app.use("/orders", ordersRouter);
 
 
 app.listen(3000);

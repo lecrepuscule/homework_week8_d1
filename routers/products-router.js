@@ -19,11 +19,12 @@ productsRouter.post("/", function(req, res){
   });
 });
 
-// productsRouter.delete("/:id", function(req, res){
-//   Product.find({}, function(err, products){
-//     if (err) console.log(err);
-//     res.json(products);
-//   });
-// })
+productsRouter.delete("/:id", function(req, res){
+  console.log(req.params.id);
+  Product.findByIdAndRemove(req.params.id, function(err, removedProduct){
+    if (err) console.log(err);
+    res.json(removedProduct);
+  })
+})
 
 module.exports = productsRouter;

@@ -8,8 +8,8 @@ var mongoose = require("mongoose");
 mongoose.connect("mongodb://localhost/ecommerce");
 var app = express();
 
-// app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.use("/users", usersRouter);
 app.use("/products", productsRouter);

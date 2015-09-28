@@ -14,7 +14,7 @@ var orderSchema = new mongoose.Schema({
   users: [User.schema]
 });
 
-orderSchema.methods.getTotalPrice = function(){
+orderSchema.methods.getBalance = function(){
   // Order
   // .aggregate({$match: { _id: mongoose.Schema.Types.ObjectId(this.id)}})
   // .unwind("products")
@@ -25,11 +25,13 @@ orderSchema.methods.getTotalPrice = function(){
   // })
   Order.findOne(this.id).populate("products").exec(function(err, order){
     if (err) console.log(err);
-
-    order.products.reduce(function(sum, product){
-    console.log(product.price);
-    return sum += product.price;
+    var balance = order.products.reduce(function(sum, product){
+      console.log(product.price);
+      return sum += product.price;
     },0)
+    Order.findOneAndUpdate(order.id, {price: balance}, function(err){
+      if (err) console.log(err);
+    });
   })
 };
 

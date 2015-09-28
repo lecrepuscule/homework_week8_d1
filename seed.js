@@ -40,9 +40,9 @@ product1.save(function(err, product){
     Order.findOne(order.id).populate("products").exec(function(err, orderDetails){
       if (err) console.log(err);
       console.log(orderDetails);
+      console.log("this is the balance "+ order.getBalance());
     });
 
-    console.log(order1.getTotalPrice());
   });
 });
 

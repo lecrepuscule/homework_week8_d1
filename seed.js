@@ -14,6 +14,12 @@ var product1 = new Product({
   description: "some people might pay good money for this piece of..."
 });
 
+var product2 = new Product({
+  name: "Trash",
+  price: 44,
+  description: "Someone's treasure..."
+});
+
 product1.save(function(err, product){
   if (err) console.log(err);
   console.log(product.name + " created");
@@ -39,12 +45,26 @@ product1.save(function(err, product){
   order1.save(function(err, order){
     Order.findOne(order.id).populate("products").exec(function(err, orderDetails){
       if (err) console.log(err);
+      order.setBalance();
       console.log(orderDetails);
-      console.log("this is the balance "+ order.getBalance());
     });
-
   });
+
+  product2.save(function(err, product){
+    if (err) console.log(err);
+    console.log(product.name + " created");
+    order1.products.push(product);
+    order1.save(function(err, order){
+    Order.findOne(order.id).populate("products").exec(function(err, orderDetails){
+        if (err) console.log(err);
+        order.setBalance();
+      })
+    });
+  })
 });
+
+
+
 
 
 

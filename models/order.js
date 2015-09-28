@@ -14,7 +14,7 @@ var orderSchema = new mongoose.Schema({
   users: [User.schema]
 });
 
-orderSchema.methods.getBalance = function(){
+orderSchema.methods.setBalance = function(){
   // Order
   // .aggregate({$match: { _id: mongoose.Schema.Types.ObjectId(this.id)}})
   // .unwind("products")

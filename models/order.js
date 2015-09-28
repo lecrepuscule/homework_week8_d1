@@ -10,10 +10,12 @@ var orderSchema = new mongoose.Schema({
     town: String,
     country: String
   },
-  products: {type: mongoose.Schema.ObjectId, ref: "Product"},
+  products: [{type: mongoose.Schema.ObjectId, ref: "Product"}],
   users: [User.schema]
 });
 
 var Order = mongoose.model("Order", orderSchema);
+
+
 
 module.exports = Order;

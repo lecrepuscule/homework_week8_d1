@@ -6,18 +6,7 @@ var User = require("./models/user");
 var Product = require("./models/product");
 var Order = require("./models/order");
 
-mongoose.connection.db.dropDatabase();
-
-// var user1 = new User({
-//   name: "Harshit",
-//   gender: "M",
-//   dob: "1 Aug 1990"
-// });
-
-// user1.save(function(err, user){
-//   if (err) console.log(err);
-//   console.log(user.name + "created");
-// });
+// mongoose.connection.db.dropDatabase();
 
 var product1 = new Product({
   name: "Junk",
@@ -30,7 +19,7 @@ product1.save(function(err, product){
   console.log(product.name + " created");
 
   var order1 = new Order({
-    price: 20,
+    // price: 20,
     shippingAddress: {
       street: "Back",
       postcode: "WC1",
@@ -52,9 +41,10 @@ product1.save(function(err, product){
       if (err) console.log(err);
       console.log(orderDetails);
     });
+
+    console.log(order1.getTotalPrice());
   });
 });
-
 
 
 

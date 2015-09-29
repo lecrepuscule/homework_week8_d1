@@ -1,5 +1,6 @@
 var express = require("express");
-var Product = require("../models/product")
+var Product = require("../models/product");
+var Order = require("../models/order");
 
 var productsRouter = express.Router();
 
@@ -21,10 +22,18 @@ productsRouter.post("/", function(req, res){
 
 productsRouter.delete("/:id", function(req, res){
   console.log(req.params.id);
-  Product.findByIdAndRemove(req.params.id, function(err, removedProduct){
-    if (err) console.log(err);
-    res.json(removedProduct);
-  })
+  Order.distinct("products", function(err, order){
+    if (err) {
+      console.log(err);
+    } else if (order.indexOf(req.params.id) !== 1) {
+      console.log("dependency exists for the product");
+    } else {
+      Product.findByIdAndRemove(req.params.id, function(err, removedProduct){
+        if (err) console.log(err);
+        res.json(removedProduct);
+      })
+    }
+  }) 
 })
 
 module.exports = productsRouter;

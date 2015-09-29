@@ -11,4 +11,12 @@ ordersRouter.get("/", function(req, res){
   });
 })
 
+ordersRouter.post("/", function(req, res){
+  var order = Order(req.body);
+  order.save(function(err, newOrder){
+    if (err) console.log(err);
+    res.json(newOrder);
+  });
+})
+
 module.exports = ordersRouter;
